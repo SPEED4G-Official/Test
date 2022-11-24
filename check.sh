@@ -29,7 +29,7 @@ get_online(){
     curl -s -X GET $url -b $cookie | grep -E -o "$iduser" | sort -rn | wc -l > output.txt
     a=$(cat output.txt)
     b=$(($a/2))
-    echo "ID $iduser Đang Sử Dụng $b Thiết Bị" >> $online_status
+    echo "Tài Khoản Của Bạn Đang Sử Dụng $b Thiết Bị" >> $online_status
 	send_telegram "$(cat $online_status)"
 	if [ $? -ne 0 ]; then
 		error_msg "Gửi Thông Tin Thất Bại!"
