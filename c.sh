@@ -47,7 +47,6 @@ main(){
 	fi
 	case $1 in
 		(-o|--online)
-			read_config
 			check_login
 			get_online
 			;;
