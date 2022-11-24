@@ -1,12 +1,20 @@
 #!/bin/bash
 
+error_msg(){
+	local msg=$1
+	echo -e "[\033[1;31mERRO\033[0m] $(date +"%F %T.%4N") -- $(basename $0) $msg" && exit 1
+}
 
+info_msg(){
+	local msg=$1
+	echo -e "[\033[1;32mINFO\033[0m] $(date +"%F %T.%4N") -- $(basename $0) $msg"
+}
 check_login(){
 	cookie=logined.cookie
 	local url=https://speed4g.me/api/v1/passport/auth/login
 	curl -s -i -X POST $url -d "email=telegram%40gmail.com" -d "password=nguyenvannghi" -c $cookie | head -1 | grep -q OK
 	if [ $? -ne 1 ]; then
-		error_msg "Login failure! Please check $config"
+		error_msg "Đăng Nhập Thất Bại!"
 	else
 		info_msg "Đăng Nhập Thành Công!"
 	fi
@@ -24,7 +32,7 @@ get_online(){
     echo "ID $iduser Đang Sử Dụng $b Thiết Bị" >> $online_status
 	send_telegram "$(cat $online_status)"
 	if [ $? -ne 0 ]; then
-		error_msg "Send message to telegram failure!"
+		error_msg "Gửi Thông Tin Thất Bại!"
     else
 		info_msg "Gửi Thông Tin Thành Công!"
 	fi
@@ -40,10 +48,10 @@ main(){
 	update=2021-11-01
 	trap "rm -rf *.cookie *status*; exit" EXIT INT
 	if  [[ $(whereis "jq") == "jq:" ]]; then
-            echo "jq is not installed,plaese run it after installation"
+            echo "jq Chưa Được Cài Đặt, Vui Lòng Cài Đặt jq"
 	    exit 1
 	else
-            echo "jq is  installed"
+            echo "jq Đã Được Cài Đặt"
 	fi
 	case $1 in
 		(-o|--online)
