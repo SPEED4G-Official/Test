@@ -5,8 +5,7 @@ read -p "Tổng Thiết Bị: " tongthietbi
 read -p "ID Telegram: " idtelegram
 cp demo.sh demo1.sh
 mv demo1.sh $iduser.sh
-
-sed -i "s|taikhoan=.*|taikhoan=\"${iduser}\"|" ./$iduser.sh
+sed -i "s|taikhoan=.*|taikhoan=\"${email}\"|" ./$iduser.sh
 sed -i "s|iduser=.*|iduser=\"${iduser}\"|" ./$iduser.sh
 sed -i "s|idtelegram=.*|idtelegram=\"${idtelegram}\"|" ./$iduser.sh
 sed -i "s|goidangki=.*|goidangki=\"${goidangki}\"|" ./$iduser.sh
